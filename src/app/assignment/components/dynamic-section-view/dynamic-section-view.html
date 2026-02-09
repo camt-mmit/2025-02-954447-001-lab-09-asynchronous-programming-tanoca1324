@@ -1,0 +1,29 @@
+<div class="_view-container">
+  @for (section of data().sections; track section) {
+    <section class="_display-section">
+      <h3>Section {{ section.name }}</h3>
+      <table class="app-cmp-table">
+        <tbody>
+          @for (item of section.items; track item; let i = $index) {
+            <tr>
+              <td>number {{ i + 1 }}</td>
+              <td class="app-cl-number">{{ item.value | number }}</td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><b>Result</b></td>
+            <td class="app-cl-number _total-underline">
+              <b>{{ calculateTotal(section.items) | number }}</b>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+  } @empty {
+    <p class="_message">
+      <i class="material-symbols-outlined">warning</i> Not Found!!!
+    </p>
+  }
+</div>

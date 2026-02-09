@@ -1,0 +1,48 @@
+<div class="_assignment-form-container">
+  <button type="button" (click)="addSection()" class="app-cmp-button">
+    <i class="material-symbols-outlined">add</i> Section
+  </button>
+
+  @for (section of form.sections; track section; let sIdx = $index) {
+    <fieldset class="_section-group">
+      <div class="_section-header">
+        <b>Section {{ sIdx + 1 }}</b>
+        <button
+          type="button"
+          (click)="removeSection(sIdx)"
+          class="app-cmp-button app-cl-warn"
+          [disabled]="form.sections().value().length === 1"
+        >
+          <i class="material-symbols-outlined">delete_forever</i>
+        </button>
+        <button type="button" (click)="addItem(sIdx)" class="app-cmp-button">
+          <i>add</i> Number
+        </button>
+      </div>
+
+      <div class="_items-container">
+        @for (item of section.items; track item; let iIdx = $index) {
+          <div class="_item-row">
+            <span class="_label">Number {{ iIdx + 1 }}</span>
+            <input type="number" [formField]="item.value" />
+            <button
+              type="button"
+              (click)="removeItem(sIdx, iIdx)"
+              class="app-cmp-button app-cl-warn"
+              [disabled]="section.items().value().length === 1"
+            >
+              <i class="material-symbols-outlined">delete</i>
+            </button>
+          </div>
+        }
+
+        <div class="_result-row">
+          <b>Result</b>
+          <span class="app-cl-number">{{ calculateTotal(sIdx) | number }}</span>
+        </div>
+
+
+      </div>
+    </fieldset>
+  }
+</div>
